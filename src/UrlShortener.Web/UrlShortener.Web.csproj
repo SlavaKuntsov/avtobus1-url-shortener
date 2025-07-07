@@ -22,5 +22,13 @@
       <ProjectReference Include="..\UrlShortener.Application\UrlShortener.Application.csproj" />
       <ProjectReference Include="..\UrlShortener.Persistence\UrlShortener.Persistence.csproj" />
     </ItemGroup>
+    
+    <Target Name="BuildCss" BeforeTargets="Compile">
+        <Exec Command="npx @tailwindcss/cli -i ./wwwroot/css/site.css -o ./wwwroot/css/output.css --watch" />
+    </Target>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\" />
+    </ItemGroup>
 
 </Project>
