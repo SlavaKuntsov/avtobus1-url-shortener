@@ -1,0 +1,6 @@
+services:
+  urlshortener.web:
+    image: ${DOCKER_REGISTRY-}urlshortenerweb
+    build:
+      context: .
+      dockerfile: UrlShortener.Web/Dockerfile
