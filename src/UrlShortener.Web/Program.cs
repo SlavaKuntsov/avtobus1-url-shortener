@@ -13,12 +13,20 @@ builder.Host.UseSerilog(
 
 services
 	.AddCommon()
+	.AddSwagger()
 	.AddApplication()
 	.AddPersistence(configuration);
 
 var app = builder.Build();
 
 app.ApplyMigrations();
+
+app.UseSwagger();
+app.UseSwaggerUI(
+	c =>
+	{
+		c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API v1");
+	});
 
 if (!app.Environment.IsDevelopment())
 {
@@ -40,5 +48,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
 	"default",
 	"{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();

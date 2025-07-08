@@ -4,21 +4,14 @@ using UrlShortener.Web.Models;
 
 namespace UrlShortener.Web.Controllers;
 
-public class HomeController : Controller
+public class HomeController(ILogger<HomeController> logger) : Controller
 {
-	private readonly ILogger<HomeController> _logger;
-
-	public HomeController(ILogger<HomeController> logger)
-	{
-		_logger = logger;
-	}
-
 	public IActionResult Index()
 	{
 		return View();
 	}
 
-	public IActionResult Privacy()
+	public IActionResult Url()
 	{
 		return View();
 	}
