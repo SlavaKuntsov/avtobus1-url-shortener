@@ -1,6 +1,37 @@
 services:
-  urlshortener.web:
-    image: ${DOCKER_REGISTRY-}urlshortenerweb
+  service:
     build:
       context: .
-      dockerfile: UrlShortener.Web/Dockerfile
+      dockerfile: Dockerfile
+    container_name: service
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:7000
+      - CONNECTION_STRING=Server=mysql;Port=3306;Database=url_shortener;Uid=root;Pwd=1;
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mariadb:10.3
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: url_shortener
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  mysql-data:
