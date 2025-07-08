@@ -12,9 +12,53 @@ public class HomeController(IUrlService service) : Controller
 		return View(await service.GetAsync(ct));
 	}
 
-	public new IActionResult Url()
+	[HttpGet]
+	public new async Task<IActionResult> Url(Guid? id, CancellationToken ct = default)
 	{
-		return View();
+		if (id == null)
+			return View(new UrlViewModel());
+
+		var entity = await service.GetAsync(id.Value, ct);
+
+		var vm = new UrlViewModel
+		{
+			Id = entity.Id,
+			LongUrl = entity.LongUrl
+		};
+
+		return View(vm);
+	}
+
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public new async Task<IActionResult> Url(UrlViewModel vm, CancellationToken ct = default)
+	{
+		if (!Uri.TryCreate(vm.LongUrl, UriKind.Absolute, out _))
+			ModelState.AddModelError(nameof(vm.LongUrl), "This url is not valid");
+
+		if (!ModelState.IsValid)
+			return View(vm);
+
+		if (vm.Id == Guid.Empty)
+		{
+			await service.AddAsync(vm.LongUrl, HttpContext, ct);
+		}
+		else
+		{
+			var existing = await service.GetAsync(vm.Id, ct);
+			existing.LongUrl = vm.LongUrl;
+			await service.UpdateAsync(existing, ct);
+		}
+
+		return RedirectToAction(nameof(Index));
+	}
+	
+	[HttpPost]
+	[ValidateAntiForgeryToken]
+	public async Task<IActionResult> Delete(Guid id, CancellationToken ct = default)
+	{
+		await service.DeleteAsync(id, ct);
+		return RedirectToAction(nameof(Index));
 	}
 
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

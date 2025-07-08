@@ -12,8 +12,6 @@ namespace UrlShortener.Web.Controllers;
 [ApiVersion("1.0")]
 public class UrlController(IUrlService service) : ControllerBase
 {
-	
-	
 	[HttpGet]
 	public async Task<IActionResult> Get(CancellationToken ct = default)
 	{

@@ -1,13 +1,35 @@
-﻿@{
-	ViewData["Title"] = "Url Page";
+﻿@model UrlShortener.Web.Models.UrlViewModel
+
+@{
+	ViewData["Title"] = Model.Id == Guid.Empty ? "Create URL" : "Edit URL";
 }
 
-<div class="flex flex-col gap-10">
-	<h2 class="text-3xl font-semibold">Create shorter url:</h2>
+<div class="flex flex-col gap-6 max-w-xl mx-auto">
+	<h2 class="text-3xl font-semibold">
+		@(Model.Id == Guid.Empty ? "Create shorter URL" : "Edit URL")
+	</h2>
 
-	<div class="flex flex-col gap-4 item-start justify-center">
-	</div>
-	<button class="w-fit">
-		<a class="" asp-area="" asp-controller="Home" asp-action="Index">Go home</a>
-	</button>
+	<form asp-action="Url" method="post" class="flex flex-col gap-4">
+		<input type="hidden" asp-for="Id" />
+
+		<label asp-for="LongUrl" class="font-medium text-lg">Long URL</label>
+		<input
+			asp-for="LongUrl"
+			class="border px-4 py-2 rounded w-full text-lg"
+			placeholder="https://example.com/very/long/path" />
+
+		<span asp-validation-for="LongUrl" class="text-red-600 text-base"></span>
+
+		<div class="flex gap-4 mt-4">
+			<button
+				type="submit"
+				class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+				@(Model.Id == Guid.Empty ? "Create" : "Save")
+			</button>
+			<a asp-action="Index"
+			   class="inline-block bg-gray-300 text-gray-800 px-6 py-2 rounded hover:bg-gray-400 transition">
+				Cancel
+			</a>
+		</div>
+	</form>
 </div>
