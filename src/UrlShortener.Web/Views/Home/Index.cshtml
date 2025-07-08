@@ -42,8 +42,10 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-blue-600 hover:underline">
-                            <a href="@item.LongUrl" target="_blank">@item.LongUrl</a>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a href="@item.LongUrl" target="_blank" class="text-blue-600 hover:underline">
+                                @item.LongUrl
+                            </a>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap font-semibold text-lg">
                             <a href="@item.ShortUrl" target="_blank" class="text-green-600 hover:underline">

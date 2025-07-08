@@ -21,6 +21,8 @@ var app = builder.Build();
 
 app.ApplyMigrations();
 
+await app.SeedUrlsAsync();
+
 app.UseSwagger();
 app.UseSwaggerUI(
 	c =>

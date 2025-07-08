@@ -47,13 +47,6 @@ public class UrlService(
 		HttpContext httpContext,
 		CancellationToken ct = default)
 	{
-		var existEntity = await dbContext.Urls
-			.AsNoTracking()
-			.FirstOrDefaultAsync(x => x.LongUrl == longUrl, ct);
-
-		if (existEntity is not null)
-			throw new AlreadyExistsException($"Url with long url '{longUrl}' already exists");
-
 		var code = await codeGenerator.GenerateRandomCode(longUrl, ct);
 
 		var shortUrl =
