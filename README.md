@@ -26,9 +26,16 @@ The project follows an N-layer architecture:
 
 ---
 
+## Possible Improvements
+
+- **Add caching** (`Redis` or `IDistributedCache`) for read-heavy operations to reduce database load.
+- ...
+
+---
+
 ## Web UI (MVC)
 
-The project uses ASP.NET Core MVC for the user interface, with two main pages:
+The project uses ASP.NET Core MVC for the user interface, styled with **Tailwind CSS**, and includes two main pages:
 
 1. **Main Page (Index)**
    - Displays a table of all shortened URLs.
