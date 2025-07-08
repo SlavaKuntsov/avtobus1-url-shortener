@@ -16,25 +16,17 @@ public static class ServiceCollectionExtensions
 		services.AddDbContextPool<ApplicationDbContext>(
 			options =>
 			{
-				options.UseNpgsql(connectionString);
+				options.UseMySql(
+					connectionString,
+					new MySqlServerVersion(new Version(10, 3, 0)),
+					mySqlOptions =>
+					{
+						mySqlOptions.EnableRetryOnFailure();
+					}
+				);
 				options.UseSnakeCaseNamingConvention();
 			},
 			128);
-
-		// services.AddDbContextPool<ApplicationDbContext>(
-		// 	options =>
-		// 	{
-		// 		options.UseMySql(
-		// 			connectionString,
-		// 			new MySqlServerVersion(new Version(10, 3, 0)),
-		// 			mySqlOptions =>
-		// 			{
-		// 				mySqlOptions.EnableRetryOnFailure();
-		// 			}
-		// 		);
-		// 		options.UseSnakeCaseNamingConvention();
-		// 	},
-		// 	128);
 
 		return services;
 	}
