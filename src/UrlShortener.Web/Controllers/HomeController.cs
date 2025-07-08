@@ -1,17 +1,18 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using UrlShortener.Application.Abstractions.Services;
 using UrlShortener.Web.Models;
 
 namespace UrlShortener.Web.Controllers;
 
-public class HomeController(ILogger<HomeController> logger) : Controller
+public class HomeController(IUrlService service) : Controller
 {
-	public IActionResult Index()
+	public async Task<IActionResult> Index(CancellationToken ct = default)
 	{
-		return View();
+		return View(await service.GetAsync(ct));
 	}
 
-	public IActionResult Url()
+	public new IActionResult Url()
 	{
 		return View();
 	}
