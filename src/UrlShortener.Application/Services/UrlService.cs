@@ -35,6 +35,9 @@ public class UrlService(
 			.FirstOrDefaultAsync(x => x.Code == code, ct)
 			?? throw new NotFoundException($"Url with code '{code}' not found");
 
+		existEntity.Counter++;
+
+		await dbContext.SaveChangesAsync(ct);
 
 		return existEntity.LongUrl;
 	}

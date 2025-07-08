@@ -14,6 +14,9 @@ public class UrlConfiguration : IEntityTypeConfiguration<Url>
 		builder.Property(t => t.Code)
 			.HasMaxLength(10);
 
+		builder.Property(t => t.Counter)
+			.HasDefaultValue(0);
+
 		builder.HasIndex(u => u.Code)
 			.IsUnique();
 	}
