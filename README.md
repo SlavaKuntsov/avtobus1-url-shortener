@@ -6,10 +6,10 @@ Test task on the topic of url shortener service at Avtobus1.
 
 The project follows an N-layer architecture:
 - **UrlShortener.Web** — presentation layer (MVC + API)
-- **UrlShortener.Application** — business logic and service abstractions
-- **UrlShortener.Persistence** — data access and database migrations
+- **UrlShortener.Application** — business and infrastructure logic, abstractions
+- **UrlShortener.Persistence** — data access, configurations and database migrations
 
-*(Также можно было использовать и чистую архитектуру, но она тут более чем избыточна, хотя при этом можно было вообще абстрагироваться от архитектуры и выполнить всё в одном проекте из-за его маленького размера.)*
+*(Также можно было использовать и чистую архитектуру, но она тут более чем избыточна, хотя при этом можно было вообще абстрагироваться от архитектуры и выполнить всё в одном проекте из-за его маленького размера. Паттерн Repository не использовался по той же причине)*
 
 ---
 
@@ -99,7 +99,3 @@ Check:
 - Automatic DB migrations
 - Input validation and error handling
 - No unnecessary complexity
-
----
-
-If you need, I can add API request examples or describe models/DTOs in more detail. Feel free to ask for further improvements!
