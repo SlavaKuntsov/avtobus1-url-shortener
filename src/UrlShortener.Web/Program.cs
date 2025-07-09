@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
 using Serilog;
-
 using UrlShortener.Application.Extensions;
 using UrlShortener.Persistence;
 using UrlShortener.Persistence.Extensions;
@@ -16,14 +14,15 @@ builder.Host.UseSerilog(
 	(context, config) =>
 		config.ReadFrom.Configuration(context.Configuration).Enrich.FromLogContext());
 
-builder.AddServiceDefaults();
-
-builder.AddMySqlDbContext<ApplicationDbContext>(
-	connectionName: "url-shortener",
-	configureDbContextOptions: dbOptions =>
-	{
-		dbOptions.UseSnakeCaseNamingConvention();
-	});
+// Aspire
+// builder.AddServiceDefaults();
+//
+// builder.AddMySqlDbContext<ApplicationDbContext>(
+// 	connectionName: "url-shortener",
+// 	configureDbContextOptions: dbOptions =>
+// 	{
+// 		dbOptions.UseSnakeCaseNamingConvention();
+// 	});
 
 services
 	.AddCommon()
