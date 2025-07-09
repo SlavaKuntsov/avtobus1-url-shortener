@@ -19,7 +19,7 @@ namespace UrlShortener.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    short_url = table.Column<string>(type: "longtext", nullable: false)
+                    short_url = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     long_url = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -38,6 +38,12 @@ namespace UrlShortener.Persistence.Migrations
                 name: "ix_urls_code",
                 table: "urls",
                 column: "code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_urls_short_url",
+                table: "urls",
+                column: "short_url",
                 unique: true);
         }
 

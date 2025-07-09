@@ -11,11 +11,17 @@ public class UrlConfiguration : IEntityTypeConfiguration<Url>
 		builder.Property(t => t.Id)
 			.IsRequired();
 
+		builder.Property(u => u.ShortUrl)
+			.IsRequired();
+
 		builder.Property(t => t.Code)
 			.HasMaxLength(10);
 
 		builder.Property(t => t.Counter)
 			.HasDefaultValue(0);
+
+		builder.HasIndex(u => u.ShortUrl)
+			.IsUnique();
 
 		builder.HasIndex(u => u.Code)
 			.IsUnique();

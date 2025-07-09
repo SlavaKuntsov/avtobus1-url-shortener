@@ -52,7 +52,7 @@ namespace UrlShortener.Persistence.Migrations
 
                     b.Property<string>("ShortUrl")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("short_url");
 
                     b.HasKey("Id")
@@ -61,6 +61,10 @@ namespace UrlShortener.Persistence.Migrations
                     b.HasIndex("Code")
                         .IsUnique()
                         .HasDatabaseName("ix_urls_code");
+
+                    b.HasIndex("ShortUrl")
+                        .IsUnique()
+                        .HasDatabaseName("ix_urls_short_url");
 
                     b.ToTable("urls", (string)null);
                 });

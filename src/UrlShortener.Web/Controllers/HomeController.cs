@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using UrlShortener.Application.Abstractions.Services;
+using UrlShortener.Application.Dtos;
 using UrlShortener.Web.Models;
 
 namespace UrlShortener.Web.Controllers;
@@ -47,7 +48,8 @@ public class HomeController(IUrlService service) : Controller
 		{
 			var existing = await service.GetAsync(vm.Id, ct);
 			existing.LongUrl = vm.LongUrl;
-			await service.UpdateAsync(existing, ct);
+			var url = new UrlUpdateDto(existing.Id, existing.LongUrl);
+			await service.UpdateAsync(url, ct);
 		}
 
 		return RedirectToAction(nameof(Index));

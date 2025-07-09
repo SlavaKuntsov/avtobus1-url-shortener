@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Application.Abstractions.Infrastructure;
 using UrlShortener.Application.Abstractions.Services;
+using UrlShortener.Application.Dtos;
 using UrlShortener.Application.Exceptions;
 using UrlShortener.Persistence;
 using UrlShortener.Persistence.Entities;
@@ -60,7 +60,7 @@ public class UrlService(
 		return shortUrl;
 	}
 
-	public async Task<Url> UpdateAsync(Url url, CancellationToken ct = default)
+	public async Task<Url> UpdateAsync(UrlUpdateDto url, CancellationToken ct = default)
 	{
 		var existing = await dbContext.Urls
 			.FindAsync([url.Id], ct);
@@ -69,8 +69,6 @@ public class UrlService(
 			throw new NotFoundException($"Url with id '{url.Id}' not found");
 
 		existing.LongUrl = url.LongUrl;
-		existing.ShortUrl = url.ShortUrl;
-		existing.Code = url.Code;
 
 		await dbContext.SaveChangesAsync(ct);
 

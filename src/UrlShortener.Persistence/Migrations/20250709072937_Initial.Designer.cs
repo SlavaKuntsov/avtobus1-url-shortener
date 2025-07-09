@@ -12,7 +12,7 @@ using UrlShortener.Persistence;
 namespace UrlShortener.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250708204605_Initial")]
+    [Migration("20250709072937_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -55,7 +55,7 @@ namespace UrlShortener.Persistence.Migrations
 
                     b.Property<string>("ShortUrl")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("varchar(255)")
                         .HasColumnName("short_url");
 
                     b.HasKey("Id")
@@ -64,6 +64,10 @@ namespace UrlShortener.Persistence.Migrations
                     b.HasIndex("Code")
                         .IsUnique()
                         .HasDatabaseName("ix_urls_code");
+
+                    b.HasIndex("ShortUrl")
+                        .IsUnique()
+                        .HasDatabaseName("ix_urls_short_url");
 
                     b.ToTable("urls", (string)null);
                 });

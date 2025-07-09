@@ -35,7 +35,9 @@ public class UrlController(IUrlService service) : ControllerBase
 	public async Task<IActionResult> Add([FromBody] UrlCreateDto request, CancellationToken ct = default)
 	{
 		if (!Uri.TryCreate(request.LongUrl, UriKind.Absolute, out _))
-			throw new BadRequestException("This url is not valid");
+			// throw some of this exceptions
+			throw new ValidationProblemException("This url is not valid");
+			// throw new BadRequestException("This url is not valid");
 
 		var shortUrl = await service.AddAsync(request.LongUrl, HttpContext, ct);
 
@@ -44,10 +46,10 @@ public class UrlController(IUrlService service) : ControllerBase
 	
 	[HttpPatch]
 	public async Task<IActionResult> Update(
-		[FromBody] Url dto,
+		[FromBody] UrlUpdateDto request,
 		CancellationToken ct = default)
 	{
-		return Ok(await service.UpdateAsync(dto, ct));
+		return Ok(await service.UpdateAsync(request, ct));
 	}
 
 	[HttpDelete("{id:Guid}")]
