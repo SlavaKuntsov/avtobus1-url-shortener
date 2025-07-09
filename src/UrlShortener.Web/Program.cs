@@ -1,15 +1,29 @@
+using Microsoft.EntityFrameworkCore;
+
 using Serilog;
+
 using UrlShortener.Application.Extensions;
+using UrlShortener.Persistence;
 using UrlShortener.Persistence.Extensions;
 using UrlShortener.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
 var services = builder.Services;
 var configuration = builder.Configuration;
 
 builder.Host.UseSerilog(
 	(context, config) =>
 		config.ReadFrom.Configuration(context.Configuration).Enrich.FromLogContext());
+
+builder.AddServiceDefaults();
+
+builder.AddMySqlDbContext<ApplicationDbContext>(
+	connectionName: "url-shortener",
+	configureDbContextOptions: dbOptions =>
+	{
+		dbOptions.UseSnakeCaseNamingConvention();
+	});
 
 services
 	.AddCommon()
