@@ -11,6 +11,8 @@ The project follows an N-layer architecture:
 
 *(Также можно было использовать и чистую архитектуру, но она тут более чем избыточна, хотя при этом можно было вообще абстрагироваться от архитектуры и выполнить всё в одном проекте из-за его маленького размера. Паттерн Repository не использовался по той же причине)*
 
+*(As an alternative to Docker, there is a configuration for Aspire)*
+
 ---
 
 ## Features

@@ -11,6 +11,8 @@
 
     <ItemGroup>
       <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+      <PackageReference Include="Aspire.Pomelo.EntityFrameworkCore.MySql" Version="9.3.1" />
+      <PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.13">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\UrlShortener.AppHost\UrlShortener.ServiceDefaults\UrlShortener.ServiceDefaults.csproj" />
       <ProjectReference Include="..\UrlShortener.Application\UrlShortener.Application.csproj" />
       <ProjectReference Include="..\UrlShortener.Persistence\UrlShortener.Persistence.csproj" />
     </ItemGroup>
